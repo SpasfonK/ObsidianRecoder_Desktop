@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ObsidianRECORDER Desktop</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <main>
+      <h1>ObsidianRECORDER Desktop</h1>
+      <p class="subtitle">Itération 1 — Socle Audio &amp; Raccourci Global</p>
+
+      <section>
+        <label for="device-select">Microphone</label>
+        <select id="device-select"></select>
+      </section>
+
+      <section class="status">
+        <span id="status-dot" class="dot idle"></span>
+        <span id="status-label">Prêt</span>
+      </section>
+
+      <button id="toggle-button">Démarrer l'enregistrement</button>
+
+      <p class="hint">
+        Raccourci global : <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>O</kbd>
+        — fonctionne même si cette fenêtre n'est pas au premier plan.
+      </p>
+
+      <p id="last-recording"></p>
+    </main>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

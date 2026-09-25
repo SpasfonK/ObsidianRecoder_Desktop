@@ -1,0 +1,50 @@
+[package]
+name = "obsidianrecorder-desktop"
+version = "0.1.0"
+edition = "2021"
+description = "ObsidianRECORDER Desktop – enregistreur de mémos vocaux local avec reconnaissance vocale hors-ligne et export vers un Vault Obsidian"
+authors = ["SpasfonK"]
+license = "MIT"
+rust-version = "1.77"
+
+[lib]
+name = "obsidianrecorder_lib"
+# staticlib/cdylib : requis par le runtime Tauri (mobile + intégrations natives).
+# rlib : permet aux tests d'intégration (tests/) d'importer directement la
+# bibliothèque sans dépendre du binaire ni du runtime Tauri.
+crate-type = ["staticlib", "cdylib", "rlib"]
+path = "src/lib.rs"
+
+[[bin]]
+name = "obsidianrecorder-desktop"
+path = "src/main.rs"
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+# Capture audio bas niveau, multiplateforme (WASAPI sous Windows via cpal).
+cpal = "0.15"
+# Écriture de fichiers WAV (PCM 16 bits) conformes aux moteurs STT hors ligne.
+hound = "3.5"
+# Raccourcis clavier globaux (RegisterHotKey sous Windows).
+global-hotkey = "0.7"
+
+thiserror = "1"
+chrono = { version = "0.4", features = ["clock"] }
+
+[dev-dependencies]
+tempfile = "3"
+
+# Empreinte mémoire/disque minimale pour un outil destiné à tourner en
+# permanence en tâche de fond (cf. cahier des charges, section 2 : éviter
+# Electron, viser un exécutable léger et peu gourmand en RAM).
+[profile.release]
+opt-level = "s"
+lto = true
+codegen-units = 1
+strip = true
